@@ -1,0 +1,33 @@
+<div class="row">
+
+	<h2>Information</h2>
+
+	<table class="table">
+		<tr>
+			<td>Chemin des langues</td>
+			<td>{{path}}</td>
+		</tr>
+		<tr>
+			<td>Langues présentes :</td>
+			<td>{{langs}}</td>
+		</tr>
+		<tr>
+			<td>Dernière modification</td>
+			<td>{{config.date_modified | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+		</tr>
+	</table>
+
+	<h2>Auto traduction</h2>
+
+	<table class="table">
+		<tr>
+			<td width="140px"><img src="img/bing.png"></td>
+			<td><label>Client ID</label><input class="form-control" type="text" ng-model="config.bing.client_id"></td>
+			<td><label>Client Secret Key</label><input class="form-control" type="text" ng-model="config.bing.client_secret"></td>
+		</tr>
+
+	</table>
+
+	<button type="button" class="btn btn-success" ng-click="saveConfig()">Enregistrer</button>	
+
+</div>

@@ -1,0 +1,83 @@
+<div class="row">
+
+  <label>Langue</label>
+    <select class="form-control" ng_model="choice_lang" ng-change="select_lang(choice_lang)" ng-options="obj.name for obj in langs"></select>
+
+  </div>
+  <div class="row">
+
+  <table class="table">
+      <tr>
+        <th>
+            Identifiant
+        </th>
+         <th>
+            Singulier
+        </th>
+        <th>
+            Pluriel
+        </th>
+        <th>
+            Duel
+        </th>
+      </tr>
+      <tr ng-repeat="(key, value) in plurials">
+          <td>
+           <span class="label label-default">%{{key}}</span>
+            
+          </td>
+          <td>
+              <input type="text" class="form-control" ng-model="value[1]" ng-keyup="changePlurial(key, value)">
+          </td>
+          <td>
+              <input type="text" class="form-control" ng-model="value[0]" ng-keyup="changePlurial(key, value)">
+          </td>
+          <td>
+             <input type="text" class="form-control" ng-model="value[2]" ng-keyup="changePlurial(key, value)">
+          </td>
+          <td>
+              <button type="button" class="btn btn-danger btn-sm"  ng-click="removePlurial(key)">
+                <span class="glyphicon glyphicon-remove"></span> 
+              </button>
+          </td>
+      </tr>
+      <tr class="success">
+          <td width="120px">
+              <div class="input-group">
+                <span class="input-group-addon">%p</span>
+                <input type="number" class="form-control" ng-model="add_key" min="0">
+              </div>
+          </td>
+          <td>
+              <input type="text" class="form-control" ng-model="add_singular">
+          </td>
+           <td>
+              <input type="text" class="form-control" ng-model="add_plurial">
+          </td>
+           <td>
+              <input type="text" class="form-control" ng-model="add_dual" placeholder="Laisser vide pour ne pas mettre de duel">
+          </td>
+          <td>
+              <button type="button" class="btn btn-success btn-sm"  ng-click="addPlurial()">
+                <span class="glyphicon glyphicon-ok"></span> 
+              </button>
+          <td>
+      </tr>
+  </table>		
+
+  <div class="well well-sm">Dans la traduction, remplacez la terminaison d'un mot par l'identifiant pour appliquer le singulier/pluriel. Admettons que vous mettez pour l'idenfiant <code>%p5</code> :
+    <ul>
+      <li>Singulier : <code>l</code></li>
+      <li>Pluriel : <code>ux</code></li>
+    </ul>
+  Dans la traduction, vous pouvez avoir cette phrase : <code>Il possède %d cheva%p5</code>
+  Dans votre site ou application, si la valeur numérique de <code>%d</code> :
+    <ul>
+      <li>vaut 1, alors le texte sera : <code>Il possède 1 cheva<b>l</b></code>
+      <li>vaut 3, alors le texte sera : <code>Il possède 3 cheva<b>ux</b></code>
+    </ul>
+  </div>
+
+  <button type="button" class="btn btn-success" ng-click="savePlurial()">Enregistrer</button>	
+
+</div>

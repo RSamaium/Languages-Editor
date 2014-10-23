@@ -1,0 +1,106 @@
+
+<div class="modal fade" id="markdown">
+  <div class="modal-dialog"  style="width:80%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Editer - Markdown</h4>
+      </div>
+      <div class="modal-body">
+         <div id="markdown-editor"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="validMarkdown(markdownText)">OK</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div ng-show="showPanel" id="mainPanel">
+
+  <div class="alert alert-info" ng-show="is_modified">{{info_modified}} <a ng-click="linkSave()">{{link_save}}</a></div>
+
+
+  <div class="row">
+
+
+    <div class="col-md-6">
+
+      <label>Filtrer</label>
+      <select class="form-control" ng-model="filter">
+         <option value="*">Toutes les phrases</option>
+         <option value="no_translate">Phrase non traduite</option>
+         <option value="translate">Phrase traduite</option>
+         <option value="approximate">Phrase approximative</option>
+      </select>
+
+    </div>
+    <div class="col-md-6">
+        <label>Rechercher</label>
+  		  <div class="input-group">
+        <input type="text" class="form-control" ng-model="search">
+        <div class="input-group-btn">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Tout <span class="caret"></span></button>
+          <ul class="dropdown-menu pull-right">
+            <li><a ng-click="_searchType('*')">Tout</a></li>
+            <li><a ng-click="_searchType('id')">Identifiant</a></li>
+            <li><a ng-click="_searchType('from')">Phrase à traduire</a></li>
+            <li><a ng-click="_searchType('to')">Phrase traduite</a></li>
+          </ul>
+        </div><!-- /btn-group -->
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+
+
+    <div id="table-langs">
+      <table class="table table-striped">
+        	<tr>
+        		<th >
+        			<select class="form-control" ng_model="choice_lang" ng-change="select_lang(choice_lang)" ng-options="obj.name for obj in all_langs"></select>
+      		  </th>
+        		<th>
+        			<select class="form-control" ng_model="choice_lang_to_translate" ng-change="select_lang_to_translate(choice_lang_to_translate)" ng-options="obj.name for obj in all_langs_real"></select>
+        		</th>
+        	</tr>
+          <tr class="success">
+            <td width="50%"><input type="text" class="form-control" ng-model="add_key" placeholder="Ajouter un identifiant" ng-keypress="addText($event, add_key, add_value)"></td>
+            <td><input type="text" class="form-control" ng-model="add_value" placeholder="Ajouter une valeur" ng-keypress="addText($event, add_key, add_value)"></td>
+          </tr>
+        	<tr ng-repeat="(key, value) in langs | translateFilter:filter | translateSearch:{search: search, type: searchType}" class="td_key" ng-mouseover="btns = true" ng-mouseleave="btns = false" >
+            <td width="50%">
+                <div class="btn_left">
+                  <button type="button" class="btn btn-danger btn-sm" ng-show="btns" ng-click="removeText(key)">
+                     <span class="glyphicon glyphicon-remove"></span> 
+                  </button>
+                </div>
+               <span ng-class="{label: value.display_id, 'label-default': value.display_id}">{{value.init}}</span>
+             </td>
+        		<td>
+
+                 
+                  <div class="input-group">
+                    <input type="text" class="form-control" ng-blur="changeText(key, value.text)" ng-model="value.text" placeholder="{{value.id}}" ng-click="edit()"></input>
+                  
+                    <span class="input-group-btn" >
+                       <button class="btn btn-default" type="button" ng-click="translate(key, value.init)" ng-hide="value.display_id">Translate</button>
+                    </span>
+                 </div>
+        
+                 
+                 
+                
+                </div>
+
+            </td>
+        	</tr>
+      </table>
+    </div>
+  	
+  </div>
+</div>
+<div ng-show="!showPanel">
+  <div class="alert alert-danger"><p>Aucuns fichiers dans le dossier</p></div>
+</div>

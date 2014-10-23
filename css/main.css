@@ -1,0 +1,42 @@
+#table-langs {
+	overflow: auto;
+}
+
+.scrollable-menu {
+    height: auto;
+    max-height: 400px;
+    overflow-x: hidden;
+}
+
+.btn_left {
+	width: 40px;
+	float: left;
+}
+
+a {
+	cursor: pointer;
+}
+
+#navbar li {
+	position: relative;
+}
+
+
+
+#navbar small {
+	font-size: 10px;
+	color: #aaa;
+	position: absolute;
+	right: 0;
+	margin-right: 10px;
+	margin-top: 4px;
+}
+
+.progress-bar {
+	-webkit-transition: inherit;
+	transition: inherit
+}
+
+#mainPanel {
+	
+}
